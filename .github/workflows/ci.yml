@@ -1,11 +1,30 @@
-name : Simple CI
+name : Simple CI-improved
 on:
  push:
   branches: [main]
 
 jobs:
- build:
-  runs-on: ubuntu:latest
-  steps:
-   - name : say hello
-     run: echo "CI is working"
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: show files
+        run: ls -la
+
+      - name: check html
+        run: |
+          if [ -f "index.html" ]; then
+            echo "index.html exists."
+          else
+            echo "index.html does not exist."
+            exit 1
+          fi
+      - name: build
+        run: echo "Building the application..."
+      - name: test
+        run: echo "Running tests..."
+      - name: deploy
+        run: echo "Deploying the application..."
+  
